@@ -59,5 +59,9 @@ export class GamesService {
         }
         return game;
     }
+
+    deleteGames(id: number): void {
+        this.games = this.games.filter(g => g.id !== id);
+    }
     
 }

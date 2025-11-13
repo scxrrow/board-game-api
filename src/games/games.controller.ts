@@ -1,5 +1,6 @@
-import { Controller, Get, Put, Post, Delete, Param, Body} from '@nestjs/common';
+import { Controller, Get, Put, Post, Delete, Param, Body, NotFoundException} from '@nestjs/common';
 import {GamesService} from './games.service';
+import { not } from 'rxjs/internal/util/not';
 
 @Controller('games')
 export class GamesController {
@@ -11,7 +12,13 @@ export class GamesController {
 
     @Get(':id')
     getGamesById(@Param('id') id: number) {
-       return this.gamesService.findOne(id);
+        const result = this.gamesService.findOne(id);
+       if(result){
+        return result;
+       }
+       else{
+        throw new NotFoundException('Game not found');
+       }
     }
 
     @Post()
@@ -28,7 +35,8 @@ export class GamesController {
 
     @Delete(':id')
     deleteGames(@Param('id') id: string) {
-        
+        this.gamesService.deleteGames(Number(id));
+        return 'game deleted';
     }
 }
 
