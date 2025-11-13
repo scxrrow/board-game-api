@@ -22,10 +22,11 @@ export class GamesController {
 
     @Put(':id')
     updateGames(@Param('id') id: string, @Body() updateBoardgameDto: any) {
-        // Logic to update an existing boardgame
+        this.gamesService.modifyGames(Number(id), updateBoardgameDto);
+        return 'game modified';
     }
 
-    @Delete(' :id ')
+    @Delete(':id')
     deleteGames(@Param('id') id: string) {
         
     }
