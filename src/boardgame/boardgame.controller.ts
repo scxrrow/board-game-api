@@ -1,17 +1,22 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { BoardgameService } from './boardgame.service';
 import { AppModule } from 'src/app.module';
 
 
 @Controller('boardgame')
 export class BoardgameController {
-    @Get()
-    getAllBoardgames() {
+  constructor(private readonly boardgameService: BoardgameService) {}
 
+  @Get()
+  getAllBoardgames() {
+       return this.boardgameService.findAll();
     }
 
-    @Get(' :id ')
-    getBoardgameById(@Param('id') id: string) {
-       
+    @Get(':id')
+    getBoardgameById(@Param('id') id: String) {
+        console.log("coucou from boardgame controller");
+        console.log(id);
+       return this.boardgameService.findOne(id);
     }
 
     @Post()

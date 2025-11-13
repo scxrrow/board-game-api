@@ -7,6 +7,20 @@ export class BoardgameService {
     constructor() {
         this.boardgame = bgg;
         console.log("coucou from boardgame service");
-        console.log(this.boardgame.length);
+        console.log(this.boardgame[0]);
+
+    }
+    findAll() {
+        return this.boardgame;
+    }
+
+    findOne(id: String): String {
+        return this.boardgame.find(boardgame => boardgame.name === id);
+    }
+
+
+    addBoardgame(boardgame) {
+        this.boardgame.push(boardgame);
+        return boardgame;
     }
 }
